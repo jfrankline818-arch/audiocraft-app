@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AudioCraft Studio - Web Sound Utilities & Acoustics Hub</title>
+
+    <!-- Google AdSense Master Script (Replace client ID with your own) -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4321543724878495" crossorigin="anonymous"></script>
+    
+    <!-- Google AdSense Account Verification Meta Tag -->
+    <meta name="google-adsense-account" content="ca-pub-4321543724878495">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .adsense-placeholder {
+            background-image: radial-gradient(rgba(156, 163, 175, 0.2) 1px, transparent 0);
+            background-size: 12px 12px;
+        }
+        .dark .adsense-placeholder {
+            background-image: radial-gradient(rgba(75, 85, 99, 0.3) 1px, transparent 0);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen flex flex-col font-sans transition-colors duration-200">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('tone-tool')">
+                    <div class="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center font-bold text-xl shadow-md">
+                        <i class="fa-solid fa-wave-square"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">AudioCraft</span>
+                        <span class="text-xs bg-brand-100 dark:bg-brand-900 text-brand-800 dark:text-brand-200 px-2 py-0.5 rounded-full font-medium ml-1">Studio</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex space-x-1">
+                    <button onclick="switchTab('tone-tool')" id="nav-tone-tool" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-gray-700 transition">
+                        <i class="fa-solid fa-sliders mr-1.5"></i> Tone Generator
+                    </button>
+                    <button onclick="switchTab('sfx-tool')" id="nav-sfx-tool" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+                        <i class="fa-solid fa-wand-magic-sparkles mr-1.5"></i> Sound FX
+                    </button>
+                    <button onclick="switchTab('bpm-tool')" id="nav-bpm-tool" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+                        <i class="fa-solid fa-stopwatch mr-1.5"></i> BPM Counter
+                    </button>
+                    <button onclick="switchTab('info-tool')" id="nav-info-tool" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+                        <i class="fa-solid fa-file-audio mr-1.5"></i> Audio Inspector
+                    </button>
+                    <button onclick="switchTab('articles')" id="nav-articles" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+                        <i class="fa-solid fa-book-open mr-1.5"></i> Guides
+                    </button>
+                </nav>
+
+                <!-- Actions -->
+                <div class="flex items-center space-x-2">
+                    <button onclick="toggleDarkMode()" class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none" title="Toggle Light/Dark Theme">
+                        <i id="theme-icon" class="fa-solid fa-moon text-lg"></i>
+                    </button>
+                    <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 pt-2 pb-3 space-y-1">
+            <button onclick="switchTab('tone-tool')" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Tone Generator</button>
+            <button onclick="switchTab('sfx-tool')" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Sound FX Synthesizer</button>
+            <button onclick="switchTab('bpm-tool')" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">BPM Tap Counter</button>
+            <button onclick="switchTab('info-tool')" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Audio File Inspector</button>
+            <button onclick="switchTab('articles')" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Acoustic Guides</button>
+        </div>
+    </header>
+
+    <!-- AD UNIT #1: TOP LEADERBOARD BANNER (150px Safe Buffer) -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 mb-8">
+        <div class="w-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-3 text-center adsense-placeholder">
+            <span class="text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 block mb-1">Advertisement</span>
+            <div class="min-h-[90px] flex items-center justify-center text-xs text-gray-400 italic">
+                <p><i class="fa-solid fa-rectangle-ad text-gray-300 dark:text-gray-600 text-3xl mb-1 block"></i> Responsive Header Leaderboard Unit</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN APP CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-6 flex-grow w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+            <!-- MAIN CONTENT AREA (8 Cols) -->
+            <div class="lg:col-span-8 space-y-6">
+
+                <!-- TOOL 1: FREQUENCY & TONE GENERATOR -->
+                <section id="tool-tone-tool" class="tab-content bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Precision Frequency Generator</h1>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Generate sine, square, saw, and triangle sound waves across pure frequencies.</p>
+                        </div>
+                        <span class="p-3 bg-brand-50 dark:bg-gray-700 text-brand-600 dark:text-brand-400 rounded-xl"><i class="fa-solid fa-sliders text-xl"></i></span>
+                    </div>
+
+                    <div class="bg-gray-50 dark:bg-gray-900/50 p-6 rounded-xl border border-gray-100 dark:border-gray-700 mb-6 text-center">
+                        <span id="freq-display" class="text-5xl font-extrabold text-brand-600 dark:text-brand-400 tracking-tight font-mono">440 Hz</span>
+                        <span id="note-display" class="block text-sm text-gray-500 dark:text-gray-400 mt-1 font-medium">Standard Tuning (A4)</span>
+                    </div>
+
+                    <!-- Frequency Slider -->
+                    <div class="space-y-4 mb-6">
+                        <label class="block text-xs font-semibold uppercase text-gray-500">Frequency (20 Hz - 5000 Hz)</label>
+                        <input type="range" id="freq-slider" min="20" max="2000" value="440" oninput="updateFrequency(this.value)" class="w-full accent-brand-600 cursor-pointer h-2 bg-gray-200 rounded-lg">
+                        
+                        <div class="flex justify-between gap-2 text-xs font-semibold">
+                            <button onclick="setQuickFreq(261.63, 'C4 (Middle C)')" class="px-2.5 py-1.5 bg-gray-100 dark:bg-gray-700 rounded-lg">261 Hz (C4)</button>
+                            <button onclick="setQuickFreq(440, 'A4 (Concert Pitch)')" class="px-2.5 py-1.5 bg-gray-100 dark:bg-gray-700 rounded-lg">440 Hz (A4)</button>
+                            <button onclick="setQuickFreq(523.25, 'C5')" class="px-2.5 py-1.5 bg-gray-100 dark:bg-gray-700 rounded-lg">523 Hz (C5)</button>
+                            <button onclick="setQuickFreq(1000, '1 kHz Reference')" class="px-2.5 py-1.5 bg-gray-100 dark:bg-gray-700 rounded-lg">1000 Hz (1kHz)</button>
+                        </div>
+                    </div>
+
+                    <!-- Waveform Controls -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+                        <button onclick="setWaveform('sine')" id="wave-sine" class="wave-btn py-2.5 px-3 rounded-xl border border-brand-500 bg-brand-50 text-brand-600 font-semibold text-xs flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-wave-square"></i> Sine
+                        </button>
+                        <button onclick="setWaveform('square')" id="wave-square" class="wave-btn py-2.5 px-3 rounded-xl border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 font-semibold text-xs flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-square"></i> Square
+                        </button>
+                        <button onclick="setWaveform('sawtooth')" id="wave-sawtooth" class="wave-btn py-2.5 px-3 rounded-xl border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 font-semibold text-xs flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-chart-line"></i> Sawtooth
+                        </button>
+                        <button onclick="setWaveform('triangle')" id="wave-triangle" class="wave-btn py-2.5 px-3 rounded-xl border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 font-semibold text-xs flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-play -rotate-90"></i> Triangle
+                        </button>
+                    </div>
+
+                    <!-- Play / Stop Button -->
+                    <div class="flex gap-4">
+                        <button id="tone-play-btn" onclick="toggleTone()" class="flex-1 py-3.5 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl text-sm transition shadow-md flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-play" id="tone-play-icon"></i> <span id="tone-play-text">Start Tone</span>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- TOOL 2: SOUND FX SYNTHESIZER -->
+                <section id="tool-sfx-tool" class="tab-content hidden bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Synthesizer Sound FX Trigger</h2>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Generate real-time procedural sound effects using Web Audio algorithms.</p>
+                        </div>
+                        <span class="p-3 bg-brand-50 dark:bg-gray-700 text-brand-600 dark:text-brand-400 rounded-xl"><i class="fa-solid fa-wand-magic-sparkles text-xl"></i></span>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 my-6">
+                        <button onclick="playSFX('laser')" class="p-5 bg-gray-50 dark:bg-gray-700/50 hover:bg-brand-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 rounded-2xl text-center group transition">
+                            <i class="fa-solid fa-bolt text-2xl text-brand-600 dark:text-brand-400 mb-2 group-hover:scale-110 transition-transform"></i>
+                            <span class="block font-bold text-sm">Retro Laser</span>
+                        </button>
+                        <button onclick="playSFX('coin')" class="p-5 bg-gray-50 dark:bg-gray-700/50 hover:bg-brand-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 rounded-2xl text-center group transition">
+                            <i class="fa-solid fa-coins text-2xl text-amber-500 mb-2 group-hover:scale-110 transition-transform"></i>
+                            <span class="block font-bold text-sm">Coin Collect</span>
+                        </button>
+                        <button onclick="playSFX('jump')" class="p-5 bg-gray-50 dark:bg-gray-700/50 hover:bg-brand-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 rounded-2xl text-center group transition">
+                            <i class="fa-solid fa-arrow-up text-2xl text-emerald-500 mb-2 group-hover:scale-110 transition-transform"></i>
+                            <span class="block font-bold text-sm">8-Bit Jump</span>
+                        </button>
+                        <button onclick="playSFX('explosion')" class="p-5 bg-gray-50 dark:bg-gray-700/50 hover:bg-brand-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 rounded-2xl text-center group transition">
+                            <i class="fa-solid fa-explosion text-2xl text-rose-500 mb-2 group-hover:scale-110 transition-transform"></i>
+                            <span class="block font-bold text-sm">Explosion Burst</span>
+                        </button>
+                        <button onclick="playSFX('powerup')" class="p-5 bg-gray-50 dark:bg-gray-700/50 hover:bg-brand-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 rounded-2xl text-center group transition">
+                            <i class="fa-solid fa-shield-halved text-2xl text-purple-500 mb-2 group-hover:scale-110 transition-transform"></i>
+                            <span class="block font-bold text-sm">Power Up</span>
+                        </button>
+                        <button onclick="playSFX('blip')" class="p-5 bg-gray-50 dark:bg-gray-700/50 hover:bg-brand-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 rounded-2xl text-center group transition">
+                            <i class="fa-solid fa-circle-dot text-2xl text-blue-500 mb-2 group-hover:scale-110 transition-transform"></i>
+                            <span class="block font-bold text-sm">UI Click Blip</span>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- TOOL 3: BPM TAP COUNTER -->
+                <section id="tool-bpm-tool" class="tab-content hidden bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">BPM Tempo Tap Counter</h2>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Tap in rhythm to instantly measure music tempo and Beats Per Minute.</p>
+                        </div>
+                        <span class="p-3 bg-brand-50 dark:bg-gray-700 text-brand-600 dark:text-brand-400 rounded-xl"><i class="fa-solid fa-stopwatch text-xl"></i></span>
+                    </div>
+
+                    <div class="text-center my-6">
+                        <span id="bpm-val" class="text-6xl font-black text-brand-600 dark:text-brand-400 font-mono">--</span>
+                        <span class="block text-sm font-semibold uppercase text-gray-400 mt-2 tracking-widest">Beats Per Minute</span>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <button onclick="tapBPM()" class="flex-1 py-8 bg-brand-600 hover:bg-brand-700 active:scale-98 text-white font-extrabold text-xl rounded-2xl shadow-lg transition flex flex-col items-center justify-center">
+                            <i class="fa-solid fa-hand-pointer mb-2 text-2xl"></i> TAP HERE IN BEAT
+                        </button>
+                        <button onclick="resetBPM()" class="py-3 px-6 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 font-semibold text-sm rounded-2xl">Reset</button>
+                    </div>
+                </section>
+
+                <!-- TOOL 4: AUDIO FILE INSPECTOR -->
+                <section id="tool-info-tool" class="tab-content hidden bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Audio File Metadata Inspector</h2>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Inspect sample rate, channel count, and duration of local audio files completely offline.</p>
+                        </div>
+                        <span class="p-3 bg-brand-50 dark:bg-gray-700 text-brand-600 dark:text-brand-400 rounded-xl"><i class="fa-solid fa-file-audio text-xl"></i></span>
+                    </div>
+
+                    <div class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-2xl p-8 text-center bg-gray-50 dark:bg-gray-900/50 mb-6">
+                        <input type="file" id="audio-file-input" accept="audio/*" onchange="inspectAudioFile(event)" class="hidden">
+                        <label for="audio-file-input" class="cursor-pointer">
+                            <i class="fa-solid fa-cloud-arrow-up text-4xl text-brand-600 dark:text-brand-400 mb-3 block"></i>
+                            <span class="font-bold text-sm block">Click to upload or drag an audio file here</span>
+                            <span class="text-xs text-gray-400 block mt-1">Supports MP3, WAV, OGG, AAC, and FLAC</span>
+                        </label>
+                    </div>
+
+                    <div id="file-meta-results" class="hidden space-y-3 bg-gray-50 dark:bg-gray-700/30 p-4 rounded-xl border border-gray-200 dark:border-gray-700 text-sm">
+                        <div class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2"><span class="text-gray-500">File Name:</span> <span id="meta-name" class="font-bold">--</span></div>
+                        <div class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2"><span class="text-gray-500">File Size:</span> <span id="meta-size" class="font-bold">--</span></div>
+                        <div class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2"><span class="text-gray-500">Duration:</span> <span id="meta-duration" class="font-bold">--</span></div>
+                        <div class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2"><span class="text-gray-500">Sample Rate:</span> <span id="meta-samplerate" class="font-bold">--</span></div>
+                        <div class="flex justify-between"><span class="text-gray-500">Channels:</span> <span id="meta-channels" class="font-bold">--</span></div>
+                    </div>
+                </section>
+
+                <!-- AD UNIT #2: MID-PAGE NATIVE DISPLAY BANNER (Safe Spacing Buffer) -->
+                <div class="w-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-4 text-center adsense-placeholder my-8">
+                    <span class="text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 block mb-1">Advertisement</span>
+                    <div class="min-h-[120px] flex items-center justify-center text-xs text-gray-400 italic">
+                        <p><i class="fa-solid fa-ad text-gray-300 dark:text-gray-600 text-3xl mb-1 block"></i> Mid-Page Native / In-Feed Ad Block</p>
+                    </div>
+                </div>
+
+                <!-- ARTICLES & GUIDES (Value of Content) -->
+                <section id="tool-articles" class="tab-content hidden space-y-6">
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Acoustics & Sound Engineering Knowledge Base</h2>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Explore technical fundamentals of wave physics, digital signal processing, and audio synthesis.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <article class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 flex flex-col justify-between">
+                            <div>
+                                <span class="text-xs font-bold uppercase text-brand-600 dark:text-brand-400 tracking-wider">Physics of Sound</span>
+                                <h3 class="text-xl font-bold mt-2 text-gray-900 dark:text-white">Understanding Waveforms & Harmonics</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300 mt-3">
+                                    Sine waves represent pure fundamental tones without additional harmonics, while square and sawtooth waves introduce odd and even harmonic series that define distinct sound timbres in synthesis.
+                                </p>
+                            </div>
+                        </article>
+
+                        <article class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 flex flex-col justify-between">
+                            <div>
+                                <span class="text-xs font-bold uppercase text-brand-600 dark:text-brand-400 tracking-wider">Audio Engineering</span>
+                                <h3 class="text-xl font-bold mt-2 text-gray-900 dark:text-white">The Nyquist-Shannon Sampling Theorem</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300 mt-3">
+                                    To accurately capture an analog audio signal digitally without aliasing distortion, the digital sample rate must be at least twice the highest audible frequency (e.g., 44.1 kHz sample rate for 20 kHz human hearing limit).
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- SIDEBAR AREA (Ad Unit #3 + Privacy Card) -->
+            <aside class="lg:col-span-4 space-y-6">
+                <div class="sticky top-20 space-y-6">
+                    <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-4 text-center shadow-sm adsense-placeholder">
+                        <span class="text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 block mb-2">Advertisement</span>
+                        <div class="min-h-[250px] flex items-center justify-center text-xs text-gray-400 italic border border-dashed border-gray-300 dark:border-gray-700 rounded-xl p-4">
+                            <div>
+                                <i class="fa-solid fa-rectangle-ad text-gray-300 dark:text-gray-600 text-4xl mb-2 block"></i>
+                                <p>Sidebar Ad Display Unit</p>
+                                <p class="text-[10px] text-gray-400 mt-1">300x250 or Responsive Rectangle</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-brand-600 to-brand-800 text-white rounded-2xl p-6 shadow-md">
+                        <i class="fa-solid fa-shield-cat text-3xl mb-3 text-brand-200"></i>
+                        <h3 class="text-lg font-bold">100% Offline Processing</h3>
+                        <p class="text-xs text-brand-100 mt-2 leading-relaxed">
+                            All audio signal processing and inspection occurs directly inside your local Web Audio engine. No audio files or data are transmitted to external servers.
+                        </p>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- FOOTER WITH MANDATORY ADSENSE POLICY LINKS -->
+    <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-wave-square text-brand-600 text-xl"></i>
+                    <span class="font-bold text-gray-900 dark:text-white">AudioCraft Studio</span>
+                    <span class="text-xs text-gray-500 dark:text-gray-400">© 2026. All Rights Reserved.</span>
+                </div>
+
+                <!-- Policy Pages Modals Links -->
+                <div class="flex flex-wrap items-center justify-center gap-4 text-xs font-medium text-gray-600 dark:text-gray-300">
+                    <button onclick="openPolicyModal('privacy')" class="hover:underline">Privacy Policy</button>
+                    <span>•</span>
+                    <button onclick="openPolicyModal('terms')" class="hover:underline">Terms of Service</button>
+                    <span>•</span>
+                    <button onclick="openPolicyModal('about')" class="hover:underline">About Us</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- POLICY MODAL POPUP -->
+    <div id="policy-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl max-w-2xl w-full p-6 max-h-[80vh] overflow-y-auto border border-gray-200 dark:border-gray-700">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="modal-title" class="text-xl font-bold text-gray-900 dark:text-white">Policy</h3>
+                <button onclick="closePolicyModal()" class="text-gray-400 hover:text-gray-600 text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="modal-content" class="text-sm text-gray-600 dark:text-gray-300 space-y-3 leading-relaxed"></div>
+        </div>
+    </div>
+
+    <!-- AUDIO ENGINE JAVASCRIPT LOGIC -->
+    <script>
+        let audioCtx = null;
+        let oscillator = null;
+        let isPlaying = false;
+        let currentWaveform = 'sine';
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById('tool-' + tabId).classList.remove('hidden');
+        }
+
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        // Tone Generator Logic
+        function updateFrequency(val) {
+            document.getElementById('freq-display').innerText = val + ' Hz';
+            if (oscillator) {
+                oscillator.frequency.setValueAtTime(val, audioCtx.currentTime);
+            }
+        }
+
+        function setQuickFreq(val, label) {
+            document.getElementById('freq-slider').value = val;
+            document.getElementById('freq-display').innerText = Math.round(val) + ' Hz';
+            document.getElementById('note-display').innerText = label;
+            if (oscillator) {
+                oscillator.frequency.setValueAtTime(val, audioCtx.currentTime);
+            }
+        }
+
+        function setWaveform(type) {
+            currentWaveform = type;
+            document.querySelectorAll('.wave-btn').forEach(b => {
+                b.classList.remove('border-brand-500', 'bg-brand-50', 'text-brand-600');
+                b.classList.add('border-gray-200', 'dark:border-gray-700', 'text-gray-600', 'dark:text-gray-300');
+            });
+            const activeBtn = document.getElementById('wave-' + type);
+            activeBtn.classList.add('border-brand-500', 'bg-brand-50', 'text-brand-600');
+            if (oscillator) {
+                oscillator.type = type;
+            }
+        }
+
+        function toggleTone() {
+            initAudio();
+            if (isPlaying) {
+                oscillator.stop();
+                oscillator.disconnect();
+                isPlaying = false;
+                document.getElementById('tone-play-text').innerText = 'Start Tone';
+                document.getElementById('tone-play-icon').className = 'fa-solid fa-play';
+            } else {
+                oscillator = audioCtx.createOscillator();
+                oscillator.type = currentWaveform;
+                oscillator.frequency.setValueAtTime(document.getElementById('freq-slider').value, audioCtx.currentTime);
+                oscillator.connect(audioCtx.destination);
+                oscillator.start();
+                isPlaying = true;
+                document.getElementById('tone-play-text').innerText = 'Stop Tone';
+                document.getElementById('tone-play-icon').className = 'fa-solid fa-stop';
+            }
+        }
+
+        // SFX Synthesizer
+        function playSFX(type) {
+            initAudio();
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            if (type === 'laser') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(800, now);
+                osc.frequency.exponentialRampToValueAtTime(100, now + 0.2);
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
+                osc.start(now);
+                osc.stop(now + 0.2);
+            } else if (type === 'coin') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(987.77, now); // B5
+                osc.frequency.setValueAtTime(1318.51, now + 0.08); // E6
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+                osc.start(now);
+                osc.stop(now + 0.3);
+            } else if (type === 'jump') {
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(150, now);
+                osc.frequency.linearRampToValueAtTime(600, now + 0.15);
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+                osc.start(now);
+                osc.stop(now + 0.15);
+            }
+        }
+
+        // BPM Counter
+        let tapTimes = [];
+        function tapBPM() {
+            const now = Date.now();
+            tapTimes.push(now);
+            if (tapTimes.length > 8) tapTimes.shift();
+            if (tapTimes.length > 1) {
+                let intervals = [];
+                for (let i = 1; i < tapTimes.length; i++) {
+                    intervals.push(tapTimes[i] - tapTimes[i - 1]);
+                }
+                const avgInterval = intervals.reduce((a, b) => a + b) / intervals.length;
+                const bpm = Math.round(60000 / avgInterval);
+                document.getElementById('bpm-val').innerText = bpm;
+            }
+        }
+        function resetBPM() {
+            tapTimes = [];
+            document.getElementById('bpm-val').innerText = '--';
+        }
+
+        // Audio File Inspector
+        function inspectAudioFile(e) {
+            initAudio();
+            const file = e.target.files[0];
+            if (!file) return;
+
+            document.getElementById('file-meta-results').classList.remove('hidden');
+            document.getElementById('meta-name').innerText = file.name;
+            document.getElementById('meta-size').innerText = (file.size / (1024 * 1024)).toFixed(2) + ' MB';
+
+            const reader = new FileReader();
+            reader.onload = function (evt) {
+                audioCtx.decodeAudioData(evt.target.result, function (buffer) {
+                    document.getElementById('meta-duration').innerText = buffer.duration.toFixed(2) + ' seconds';
+                    document.getElementById('meta-samplerate').innerText = buffer.sampleRate + ' Hz';
+                    document.getElementById('meta-channels').innerText = buffer.numberOfChannels === 1 ? 'Mono (1)' : 'Stereo (2)';
+                });
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        // Modals Logic
+        function openPolicyModal(type) {
+            const modal = document.getElementById('policy-modal');
+            const title = document.getElementById('modal-title');
+            const content = document.getElementById('modal-content');
+
+            if (type === 'privacy') {
+                title.innerText = 'Privacy Policy';
+                content.innerHTML = '<p>AudioCraft Studio values user privacy. All sound processing occurs 100% locally in your browser using the HTML5 Web Audio API. No audio recordings or uploaded files are logged or transmitted to external remote servers.</p><p>We use Google AdSense to serve ads on our site. Third-party vendors use cookies to serve ads based on your prior visits to our website.</p>';
+            } else if (type === 'terms') {
+                title.innerText = 'Terms of Service';
+                content.innerHTML = '<p>By accessing AudioCraft Studio, you agree to use our client-side sound utilities for lawful audio testing and educational purposes. All software is provided "as is" without warranty.</p>';
+            } else if (type === 'about') {
+                title.innerText = 'About Us';
+                content.innerHTML = '<p>AudioCraft Studio is a digital web utility suite designed for sound designers, musicians, and audio engineers seeking fast, client-side sound synthesis, frequency reference tools, and file metadata analysis.</p>';
+            }
+            modal.classList.remove('hidden');
+        }
+
+        function closePolicyModal() {
+            document.getElementById('policy-modal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
