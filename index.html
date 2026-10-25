@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AudioCraft Studio - Web Sound Utilities & Acoustics Hub</title>
 
-    <!-- Google AdSense Master Script (Replace client ID with your own) -->
+    <!-- Google AdSense Master Script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4321543724878495" crossorigin="anonymous"></script>
     
     <!-- Google AdSense Account Verification Meta Tag -->
@@ -36,12 +36,8 @@
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .adsense-placeholder {
-            background-image: radial-gradient(rgba(156, 163, 175, 0.2) 1px, transparent 0);
-            background-size: 12px 12px;
-        }
-        .dark .adsense-placeholder {
-            background-image: radial-gradient(rgba(75, 85, 99, 0.3) 1px, transparent 0);
+        .adsense-container {
+            background-color: rgba(156, 163, 175, 0.05);
         }
     </style>
 </head>
@@ -103,12 +99,20 @@
         </div>
     </header>
 
-    <!-- AD UNIT #1: TOP LEADERBOARD BANNER (150px Safe Buffer) -->
+    <!-- AD UNIT #1: TOP LEADERBOARD BANNER (Policy-Safe Wrapper) -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 mb-8">
-        <div class="w-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-3 text-center adsense-placeholder">
-            <span class="text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 block mb-1">Advertisement</span>
-            <div class="min-h-[90px] flex items-center justify-center text-xs text-gray-400 italic">
-                <p><i class="fa-solid fa-rectangle-ad text-gray-300 dark:text-gray-600 text-3xl mb-1 block"></i> Responsive Header Leaderboard Unit</p>
+        <div class="w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-3 text-center adsense-container shadow-sm">
+            <!-- Policy-compliant container placeholder -->
+            <div class="min-h-[90px] flex items-center justify-center text-xs text-gray-400">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-4321543724878495"
+                     data-ad-slot="1234567890"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
             </div>
         </div>
     </div>
@@ -261,15 +265,22 @@
                     </div>
                 </section>
 
-                <!-- AD UNIT #2: MID-PAGE NATIVE DISPLAY BANNER (Safe Spacing Buffer) -->
-                <div class="w-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-4 text-center adsense-placeholder my-8">
-                    <span class="text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 block mb-1">Advertisement</span>
-                    <div class="min-h-[120px] flex items-center justify-center text-xs text-gray-400 italic">
-                        <p><i class="fa-solid fa-ad text-gray-300 dark:text-gray-600 text-3xl mb-1 block"></i> Mid-Page Native / In-Feed Ad Block</p>
+                <!-- AD UNIT #2: MID-PAGE BANNER -->
+                <div class="w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-4 text-center adsense-container my-8 shadow-sm">
+                    <div class="min-h-[120px] flex items-center justify-center text-xs text-gray-400">
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-4321543724878495"
+                             data-ad-slot="0987654321"
+                             data-ad-format="auto"
+                             data-full-width-responsive="true"></ins>
+                        <script>
+                             (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
                     </div>
                 </div>
 
-                <!-- ARTICLES & GUIDES (Value of Content) -->
+                <!-- ARTICLES & GUIDES -->
                 <section id="tool-articles" class="tab-content hidden space-y-6">
                     <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
                         <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Acoustics & Sound Engineering Knowledge Base</h2>
@@ -304,14 +315,17 @@
             <!-- SIDEBAR AREA (Ad Unit #3 + Privacy Card) -->
             <aside class="lg:col-span-4 space-y-6">
                 <div class="sticky top-20 space-y-6">
-                    <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-4 text-center shadow-sm adsense-placeholder">
-                        <span class="text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 block mb-2">Advertisement</span>
-                        <div class="min-h-[250px] flex items-center justify-center text-xs text-gray-400 italic border border-dashed border-gray-300 dark:border-gray-700 rounded-xl p-4">
-                            <div>
-                                <i class="fa-solid fa-rectangle-ad text-gray-300 dark:text-gray-600 text-4xl mb-2 block"></i>
-                                <p>Sidebar Ad Display Unit</p>
-                                <p class="text-[10px] text-gray-400 mt-1">300x250 or Responsive Rectangle</p>
-                            </div>
+                    <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-4 text-center shadow-sm adsense-container">
+                        <div class="min-h-[250px] flex items-center justify-center text-xs text-gray-400 border border-dashed border-gray-200 dark:border-gray-700 rounded-xl p-4">
+                            <ins class="adsbygoogle"
+                                 style="display:block"
+                                 data-ad-client="ca-pub-4321543724878495"
+                                 data-ad-slot="1122334455"
+                                 data-ad-format="auto"
+                                 data-full-width-responsive="true"></ins>
+                            <script>
+                                 (adsbygoogle = window.adsbygoogle || []).push({});
+                            </script>
                         </div>
                     </div>
 
@@ -344,6 +358,8 @@
                     <button onclick="openPolicyModal('terms')" class="hover:underline">Terms of Service</button>
                     <span>•</span>
                     <button onclick="openPolicyModal('about')" class="hover:underline">About Us</button>
+                    <span>•</span>
+                    <button onclick="openPolicyModal('contact')" class="hover:underline">Contact Support</button>
                 </div>
             </div>
         </div>
@@ -351,8 +367,8 @@
 
     <!-- POLICY MODAL POPUP -->
     <div id="policy-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white dark:bg-gray-800 rounded-2xl max-w-2xl w-full p-6 max-h-[80vh] overflow-y-auto border border-gray-200 dark:border-gray-700">
-            <div class="flex justify-between items-center mb-4">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl max-w-2xl w-full p-6 max-h-[80vh] overflow-y-auto border border-gray-200 dark:border-gray-700 shadow-xl">
+            <div class="flex justify-between items-center mb-4 border-b pb-3 border-gray-200 dark:border-gray-700">
                 <h3 id="modal-title" class="text-xl font-bold text-gray-900 dark:text-white">Policy</h3>
                 <button onclick="closePolicyModal()" class="text-gray-400 hover:text-gray-600 text-lg"><i class="fa-solid fa-xmark"></i></button>
             </div>
@@ -360,7 +376,7 @@
         </div>
     </div>
 
-    <!-- AUDIO ENGINE JAVASCRIPT LOGIC -->
+    <!-- AUDIO ENGINE & POLICY JAVASCRIPT LOGIC -->
     <script>
         let audioCtx = null;
         let oscillator = null;
@@ -380,6 +396,8 @@
 
         function toggleDarkMode() {
             document.documentElement.classList.toggle('dark');
+            const icon = document.getElementById('theme-icon');
+            icon.className = document.documentElement.classList.contains('dark') ? 'fa-solid fa-sun text-lg' : 'fa-solid fa-moon text-lg';
         }
 
         function toggleMobileMenu() {
@@ -436,7 +454,7 @@
             }
         }
 
-        // SFX Synthesizer
+        // SFX Synthesizer Logic
         function playSFX(type) {
             initAudio();
             const now = audioCtx.currentTime;
@@ -448,89 +466,136 @@
             if (type === 'laser') {
                 osc.type = 'sawtooth';
                 osc.frequency.setValueAtTime(800, now);
-                osc.frequency.exponentialRampToValueAtTime(100, now + 0.2);
+                osc.frequency.exponentialRampToValueAtTime(80, now + 0.3);
                 gain.gain.setValueAtTime(0.3, now);
-                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.3);
                 osc.start(now);
-                osc.stop(now + 0.2);
+                osc.stop(now + 0.3);
             } else if (type === 'coin') {
                 osc.type = 'sine';
-                osc.frequency.setValueAtTime(987.77, now); // B5
-                osc.frequency.setValueAtTime(1318.51, now + 0.08); // E6
-                gain.gain.setValueAtTime(0.2, now);
-                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+                osc.frequency.setValueAtTime(987.77, now);
+                osc.frequency.setValueAtTime(1318.51, now + 0.08);
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.3);
                 osc.start(now);
                 osc.stop(now + 0.3);
             } else if (type === 'jump') {
                 osc.type = 'square';
                 osc.frequency.setValueAtTime(150, now);
-                osc.frequency.linearRampToValueAtTime(600, now + 0.15);
+                osc.frequency.exponentialRampToValueAtTime(450, now + 0.2);
                 gain.gain.setValueAtTime(0.2, now);
-                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.2);
                 osc.start(now);
-                osc.stop(now + 0.15);
+                osc.stop(now + 0.2);
+            } else if (type === 'explosion') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(100, now);
+                osc.frequency.linearRampToValueAtTime(30, now + 0.4);
+                gain.gain.setValueAtTime(0.4, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.4);
+                osc.start(now);
+                osc.stop(now + 0.4);
+            } else if (type === 'powerup') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(300, now);
+                osc.frequency.linearRampToValueAtTime(600, now + 0.3);
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.3);
+                osc.start(now);
+                osc.stop(now + 0.3);
+            } else if (type === 'blip') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(600, now);
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.1);
+                osc.start(now);
+                osc.stop(now + 0.1);
             }
         }
 
-        // BPM Counter
+        // BPM Tap Counter Logic
         let tapTimes = [];
         function tapBPM() {
             const now = Date.now();
+            if (tapTimes.length > 0 && now - tapTimes[tapTimes.length - 1] > 2500) {
+                tapTimes = [];
+            }
             tapTimes.push(now);
-            if (tapTimes.length > 8) tapTimes.shift();
             if (tapTimes.length > 1) {
                 let intervals = [];
                 for (let i = 1; i < tapTimes.length; i++) {
                     intervals.push(tapTimes[i] - tapTimes[i - 1]);
                 }
-                const avgInterval = intervals.reduce((a, b) => a + b) / intervals.length;
+                const avgInterval = intervals.reduce((a, b) => a + b, 0) / intervals.length;
                 const bpm = Math.round(60000 / avgInterval);
                 document.getElementById('bpm-val').innerText = bpm;
             }
         }
+
         function resetBPM() {
             tapTimes = [];
             document.getElementById('bpm-val').innerText = '--';
         }
 
-        // Audio File Inspector
-        function inspectAudioFile(e) {
-            initAudio();
-            const file = e.target.files[0];
+        // Audio Metadata Inspector Logic
+        function inspectAudioFile(event) {
+            const file = event.target.files[0];
             if (!file) return;
 
-            document.getElementById('file-meta-results').classList.remove('hidden');
             document.getElementById('meta-name').innerText = file.name;
             document.getElementById('meta-size').innerText = (file.size / (1024 * 1024)).toFixed(2) + ' MB';
 
             const reader = new FileReader();
-            reader.onload = function (evt) {
-                audioCtx.decodeAudioData(evt.target.result, function (buffer) {
+            reader.onload = function(e) {
+                const arrayBuffer = e.target.result;
+                initAudio();
+                audioCtx.decodeAudioData(arrayBuffer, function(buffer) {
                     document.getElementById('meta-duration').innerText = buffer.duration.toFixed(2) + ' seconds';
                     document.getElementById('meta-samplerate').innerText = buffer.sampleRate + ' Hz';
-                    document.getElementById('meta-channels').innerText = buffer.numberOfChannels === 1 ? 'Mono (1)' : 'Stereo (2)';
+                    document.getElementById('meta-channels').innerText = buffer.numberOfChannels === 1 ? 'Mono (1 channel)' : 'Stereo (' + buffer.numberOfChannels + ' channels)';
+                    document.getElementById('file-meta-results').classList.remove('hidden');
+                }, function(err) {
+                    alert('Error decoding audio file metadata.');
                 });
             };
             reader.readAsArrayBuffer(file);
         }
 
-        // Modals Logic
+        // Policy Modals Content Controller
         function openPolicyModal(type) {
             const modal = document.getElementById('policy-modal');
             const title = document.getElementById('modal-title');
             const content = document.getElementById('modal-content');
+            modal.classList.remove('hidden');
 
             if (type === 'privacy') {
                 title.innerText = 'Privacy Policy';
-                content.innerHTML = '<p>AudioCraft Studio values user privacy. All sound processing occurs 100% locally in your browser using the HTML5 Web Audio API. No audio recordings or uploaded files are logged or transmitted to external remote servers.</p><p>We use Google AdSense to serve ads on our site. Third-party vendors use cookies to serve ads based on your prior visits to our website.</p>';
+                content.innerHTML = `
+                    <p><strong>Effective Date:</strong> October 2026</p>
+                    <p>AudioCraft Studio respects your privacy. All audio tools and acoustic utilities on this website operate entirely client-side within your browser's Web Audio API. We do not collect, upload, or store your personal audio recordings or files on external servers.</p>
+                    <p><strong>Third-Party Advertisers:</strong> We use Google AdSense to serve ads. Google, as a third-party vendor, uses cookies to serve ads based on your prior visits to our website or other websites. Google's use of advertising cookies enables it and its partners to serve ads to your users based on their visit to your sites and/or other sites on the Internet.</p>
+                    <p>Users may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" class="text-brand-600 underline">Google Ads Settings</a>.</p>
+                `;
             } else if (type === 'terms') {
                 title.innerText = 'Terms of Service';
-                content.innerHTML = '<p>By accessing AudioCraft Studio, you agree to use our client-side sound utilities for lawful audio testing and educational purposes. All software is provided "as is" without warranty.</p>';
+                content.innerHTML = `
+                    <p><strong>Effective Date:</strong> October 2026</p>
+                    <p>Welcome to AudioCraft Studio. By accessing our website, you agree to comply with and be bound by the following terms and conditions of use.</p>
+                    <p>The content of the pages of this website is for your general information and utility use only. It is subject to change without notice. Neither we nor any third parties provide any warranty or guarantee as to the accuracy, timeliness, performance, completeness, or suitability of the information and tools found on this website.</p>
+                `;
             } else if (type === 'about') {
                 title.innerText = 'About Us';
-                content.innerHTML = '<p>AudioCraft Studio is a digital web utility suite designed for sound designers, musicians, and audio engineers seeking fast, client-side sound synthesis, frequency reference tools, and file metadata analysis.</p>';
+                content.innerHTML = `
+                    <p>AudioCraft Studio is a comprehensive web sound utilities and acoustics hub designed for musicians, producers, and audio enthusiasts. Our platform provides lightning-fast browser-based frequency generators, procedural sound synthesizers, tempo tools, and technical acoustics guides built with cutting-edge web technologies.</p>
+                `;
+            } else if (type === 'contact') {
+                title.innerText = 'Contact Support';
+                content.innerHTML = `
+                    <p>Need assistance or have feedback regarding AudioCraft Studio? We are here to help!</p>
+                    <p>You can reach our support team directly via email at: <strong>support@audiocraftstudio.com</strong></p>
+                    <p>We typically respond to all inquiries within 24–48 business hours.</p>
+                `;
             }
-            modal.classList.remove('hidden');
         }
 
         function closePolicyModal() {
